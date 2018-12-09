@@ -31,8 +31,8 @@ public class Chemist {
 
   Chemist(JFrame jFrame){
 
-        klawisze        = new boolean[4];
-        wsp             = new int[2];
+        klawisze  = new boolean[4];
+        wsp    = new int[2];
         wsp[0] = -500;
         wsp[1] = 200;
 
@@ -65,7 +65,6 @@ public class Chemist {
                                             klawisze[3] = false; break;
                                     }
                                 }
-
 
                                 public void keyTyped(KeyEvent e){
                                 }

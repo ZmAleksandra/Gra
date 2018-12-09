@@ -19,7 +19,7 @@
          setLayout(new GridLayout(1,1));
          Parameters.loadInitialImages();
          Toolkit tk = Toolkit.getDefaultToolkit();
-         add(new Panel(width, height, jFrame));
+         add(new gPanel(width, height, jFrame));
      }
      private void animationLoop() {
          Parameters.startTime = System.currentTimeMillis();

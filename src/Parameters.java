@@ -15,7 +15,7 @@
      public static double levelTime;
      public static int MoveMODE=1;
      public static boolean end=false;
-     public static int noOfObjects=8;
+     public static int n=8;
      public static int gWidth=1280;
      public static int gHeight=720;
 

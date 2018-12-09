@@ -4,19 +4,18 @@
  import java.awt.event.MouseEvent;
  import java.text.DecimalFormat;
 
- public class Panel extends JPanel {
+ public class gPanel extends JPanel {
 
      public int sWidth;
      public int sHeight;
-     public int objectsInLine;
-     public int shiftBL;
      public GameStatus gStatus;
      public int barHeight;
      public Font menuFont;
      public Font alertFont;
-        Chemist ch;
+     public Chemist ch;
 
-     public Panel(int width, int height, JFrame jFrame) {
+
+     public gPanel(int width, int height, JFrame jFrame) {
          ch = new Chemist(jFrame);
          gStatus = new GameStatus();
          gStatus.reset();
@@ -26,9 +25,6 @@
          this.sWidth = width;
          this.sHeight = height;
          barHeight = 50;
-
-         objectsInLine = 4;
-         shiftBL = sHeight / (Parameters.noOfObjects / objectsInLine);
 
          restartGame();
 
@@ -129,7 +125,7 @@
             g.drawString("" + gStatus.level, 200, sHeight - 50);
              g.drawString("PUNKTY:", 300, sHeight - 50);
 
-             if (gStatus.points == Parameters.noOfObjects) {
+             if (gStatus.points == Parameters.n) {
                  if (!Parameters.levelPause) {
                      long stopTime = System.currentTimeMillis();
                      Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
@@ -157,17 +153,6 @@
          Parameters.startTime = System.currentTimeMillis();
          Parameters.pause = false;
 
-         int inLine = 0;
-         int yLine = 0;
 
-         for (int i = 0; i < Parameters.noOfObjects; i++) {
-
-
-             if (inLine >= objectsInLine) {
-                 yLine++;
-                 inLine %= objectsInLine;
-             }
-             inLine++;
-         }
      }
  }
