@@ -13,12 +13,15 @@
      public Font menuFont;
      public Font alertFont;
      public Chemist ch;
+     public TubeTest tubes;
 
 
      public gPanel(int width, int height, JFrame jFrame) {
          ch = new Chemist(jFrame);
          gStatus = new GameStatus();
+         tubes = new TubeTest();
          gStatus.reset();
+         tubes.level(gStatus.level);
          menuFont = new Font("Dialog", Font.BOLD, 36);
          alertFont = new Font("Dialog", Font.BOLD, 92);
 
@@ -85,11 +88,15 @@
          int d=40;
          int dy=90;
          int i=0;
+
+
+
          for (int x=30;x<320;x=x+d) {
              for (int y =410; y < 520; y =y+dy) {
 
                  if (i < 8) {
-                     g.drawImage(Parameters.testTubes[i],x,y,null);
+
+                     g.drawImage(tubes.tTube[i],x,y,null);
                      i++;
                  }
              }
