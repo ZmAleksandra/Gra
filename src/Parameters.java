@@ -8,6 +8,11 @@
      public static Image bgImage;
      public static Image chemist1;
      public static Image chemist2;
+     public static Image title1;
+     public static Image title2;
+     public static Image title3;
+     public static Image title4;
+     public static Image title5;
      public static Image[] testTubes;
      public static boolean pause=false;
      public static boolean levelPause=false;
@@ -24,6 +29,11 @@
          bgImage = loadImage("images/background.png");
          chemist1= loadImage("images/ludek1.png");
          chemist2= loadImage("images/ludek2.png");
+         title1= loadImage("images/napis1.png");
+         title2= loadImage("images/napis2.png");
+         title3= loadImage("images/napis3.png");
+         title4= loadImage("images/napis4.png");
+         title5= loadImage("images/napis5.png");
 
          testTubes= new Image[31];
          testTubes[0]=loadImage("images/p1.png");
@@ -57,7 +67,6 @@
          testTubes[28]=loadImage("images/p11.png");
          testTubes[29]=loadImage("images/p15.png");
          testTubes[30]=loadImage("images/p28.png");
-
 
      }
      public static Image loadImage(String fileName) {

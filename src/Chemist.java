@@ -22,10 +22,10 @@ public class Chemist {
             if(klawisze[3])
                 wsp[0]+=1;
 
-            wsp[0] = (wsp[0]<-500)?-500:wsp[0];
+            wsp[0] = (wsp[0]<-520)?-520:wsp[0];
             wsp[0] = (wsp[0]>320)?320:wsp[0];
-            wsp[1] = (wsp[1]<20)?20:wsp[1];
-            wsp[1] = (wsp[1]>940)?940:wsp[1];
+            wsp[1] = (wsp[1]<200)?200:wsp[1];
+            wsp[1] = (wsp[1]>240)?240:wsp[1];
         }
     }
 
@@ -33,11 +33,11 @@ public class Chemist {
 
         klawisze  = new boolean[4];
         wsp    = new int[2];
-        wsp[0] = -500;
+        wsp[0] = -520;
         wsp[1] = 200;
 
         zegar = new Timer();
-        zegar.scheduleAtFixedRate(new Run(),0,20);
+        zegar.scheduleAtFixedRate(new Run(),0,8);
         jFrame.addKeyListener(new KeyListener(){
 
                                 public void keyPressed(KeyEvent e){

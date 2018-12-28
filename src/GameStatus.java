@@ -1,4 +1,3 @@
-
    public class GameStatus{
         public int points;
         public int level;

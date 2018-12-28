@@ -8,8 +8,8 @@
 
      public int sWidth;
      public int sHeight;
-     public GameStatus gStatus;
      public int barHeight;
+     public GameStatus gStatus;
      public Font menuFont;
      public Font alertFont;
      public Chemist ch;
@@ -21,7 +21,7 @@
          gStatus = new GameStatus();
          tubes = new TubeTest();
          gStatus.reset();
-         tubes.level(gStatus.level);
+         tubes.level(5);
          menuFont = new Font("Dialog", Font.BOLD, 36);
          alertFont = new Font("Dialog", Font.BOLD, 92);
 
@@ -74,6 +74,25 @@
                          }
                      }
                  }
+
+                 if(me.getX()> 30 && me.getX()<180 && me.getY()>420 && me.getY()<595)
+                 {
+
+
+                     gStatus.points++;
+                 }
+
+//                 for (int i = 0; i < fBalloon.length; i++) {
+//                     if (me.getY() < (sHeight - barHeight)) {
+//                         if (fBalloon[i].containsPoint(me.getX(), me.getY())) {//sprawdz czy balonik
+//                             // zawiera te punkty któe zostaly wcisniete przez uzytkownika za pomocą myszki
+//                             if (!fBalloon[i].hit) {
+//                                 fBalloon[i].setHit();
+//                                 gStatus.points++;
+//                             }
+//                         }
+//                     }
+//                 }//koniec for i
              }//koniec mouseClicked()
          });
      }
@@ -90,26 +109,26 @@
          int i=0;
 
 
-
          for (int x=30;x<320;x=x+d) {
              for (int y =410; y < 520; y =y+dy) {
 
                  if (i < 8) {
 
-                     g.drawImage(tubes.tTube[i],x,y,null);
+                   g.drawImage(tubes.tTube[i],x,y,null);
                      i++;
                  }
              }
          }
-         g.drawImage(Parameters.chemist2,ch.wsp[0],ch.wsp[1],null);
 
+         g.drawImage(Parameters.chemist2,ch.wsp[0],ch.wsp[1],null);
+         g.drawImage(tubes.title,1120,450,null);
          g.setColor(new Color(50, 47, 22));
          g.fillRect(0, sHeight - barHeight-30, sWidth, barHeight);
          g.setColor(Color.white);
          g.setFont(menuFont);
 
          if (Parameters.pause) {
-             g.drawString("GRA", 1000, sHeight - 50);;
+             g.drawString("GRA", 1000, sHeight - 50);
              g.setColor(Color.red);
              g.drawString("KONIEC GRY!", 10, sHeight - 50);
              g.setColor(Color.white);
@@ -132,22 +151,22 @@
             g.drawString("" + gStatus.level, 200, sHeight - 50);
              g.drawString("PUNKTY:", 300, sHeight - 50);
 
-             if (gStatus.points == Parameters.n) {
-                 if (!Parameters.levelPause) {
-                     long stopTime = System.currentTimeMillis();
-                     Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
-                     Parameters.levelPause = true;
-                 }
-                 g.setColor(Color.RED);
-                 g.drawString("GRASZ DALEJ?", 500, sHeight - 10);
-                 g.setFont(alertFont);
-                 DecimalFormat df = new DecimalFormat("#.##");
-                 g.drawString("WYGRANA" + df.format(Parameters.levelTime) + "s", 150, sHeight / 2);
-                 g.setColor(Color.white);
-                 g.setFont(menuFont);
-
-            }
-            else
+//             if (gStatus.points == Parameters.n) {
+//                 if (!Parameters.levelPause) {
+//                     long stopTime = System.currentTimeMillis();
+//                     Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
+//                     Parameters.levelPause = true;
+//                 }
+//                 g.setColor(Color.RED);
+//                 g.drawString("GRASZ DALEJ?", 500, sHeight - 10);
+//                 g.setFont(alertFont);
+//                 DecimalFormat df = new DecimalFormat("#.##");
+//                // g.drawString("WYGRANA" + df.format(Parameters.levelTime) + "s", 150, sHeight / 2);
+//                 g.setColor(Color.white);
+//                 g.setFont(menuFont);
+//
+//            }
+//            else
                  g.drawString("" + gStatus.points, 500, sHeight - 50);
 
              g.drawString("MENU", 900, sHeight - 50);
