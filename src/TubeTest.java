@@ -238,4 +238,5 @@ public static int getcoordinate(int x, int y)
 
 return index;
     }
+
     }

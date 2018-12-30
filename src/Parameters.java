@@ -4,7 +4,7 @@
  public class Parameters {
 
      public static long GAME_TIME=Long.MAX_VALUE;
-     public final static long NO_LEVELS=5;
+     public final static long n_levels=5;
      public static Image bgImage;
      public static Image chemist1;
      public static Image chemist2;
@@ -13,9 +13,17 @@
      public static Image title3;
      public static Image title4;
      public static Image title5;
+     public static Image menuImage;
+     public static Image theEnd;
+     public static Image newGame;
+     public static Image play;
+     public static Image level;
+     public static Image time;
+     public static Image points;
      public static Image[] testTubes;
      public static boolean pause=false;
      public static boolean levelPause=false;
+     public static boolean hit = false;
      public static long startTime;
      public static double levelTime;
      public static int MoveMODE=1;
@@ -34,6 +42,13 @@
          title3= loadImage("images/napis3.png");
          title4= loadImage("images/napis4.png");
          title5= loadImage("images/napis5.png");
+         menuImage= loadImage("images/menu.png");
+         theEnd= loadImage("images/koniec.png");
+         newGame= loadImage("images/nowa_gra.png");
+         play= loadImage("images/graj.png");
+         level= loadImage("images/poziom.png");
+         time= loadImage("images/czas.png");
+         points= loadImage("images/punkty.png");
 
          testTubes= new Image[31];
          testTubes[0]=loadImage("images/p1.png");
