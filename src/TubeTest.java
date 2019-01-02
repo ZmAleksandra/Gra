@@ -5,15 +5,17 @@ public class TubeTest
 {
     public Image [] tTube;
     public Image title;
+    public boolean [] answers;
 
     public TubeTest()
     {
         tTube= new Image [8];
-
+        answers = new boolean[8];
     }
 
  public void level (int nLevel)
  {
+
  int numbers [] = new int [31];
  for(int i=0; i<31;i++)
   numbers[i]=i;
@@ -196,7 +198,8 @@ while ( counter<8)
  if(value == 0  && countgood < good.length)
  {
   tTube1 [counter]= good[countgood];
- gAnswer[countgood]=counter;
+ //gAnswer[countgood]=counter;
+     answers[counter]=true;
   counter ++;
   countgood ++;
 
@@ -204,6 +207,7 @@ while ( counter<8)
  if(value == 1  && countbad < bad.length)
  {
      tTube1 [counter]= bad[countbad];
+     answers[counter]=false;
      counter ++;
      countbad ++;
  }
@@ -212,7 +216,7 @@ while ( counter<8)
 
     tTube=tTube1;
     }
-public static int getcoordinate(int x, int y)
+public  int getindex(int x, int y)
     {
      int index=0;
     if(y>508)

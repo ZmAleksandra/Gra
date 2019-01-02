@@ -14,6 +14,8 @@
      public static Image title4;
      public static Image title5;
      public static Image menuImage;
+     public static Image help;
+     public static Image closehelp;
      public static Image theEnd;
      public static Image newGame;
      public static Image play;
@@ -23,7 +25,6 @@
      public static Image[] testTubes;
      public static boolean pause=false;
      public static boolean levelPause=false;
-     public static boolean hit = false;
      public static long startTime;
      public static double levelTime;
      public static int MoveMODE=1;
@@ -43,6 +44,8 @@
          title4= loadImage("images/napis4.png");
          title5= loadImage("images/napis5.png");
          menuImage= loadImage("images/menu.png");
+         help= loadImage("images/pomoc.png");
+         closehelp= loadImage("images/koniec_pomocy.png");
          theEnd= loadImage("images/koniec.png");
          newGame= loadImage("images/nowa_gra.png");
          play= loadImage("images/graj.png");
