@@ -22,10 +22,10 @@ public class Chemist {
             if(klawisze[3])
                 wsp[0]+=1;
 
-            wsp[0] = (wsp[0]<-530)?-530:wsp[0];
-            wsp[0] = (wsp[0]>285)?285:wsp[0];
-            wsp[1] = (wsp[1]<150)?150:wsp[1];
-            wsp[1] = (wsp[1]>200)?200:wsp[1];
+            wsp[0] = (wsp[0]<190)?190:wsp[0];
+            wsp[0] = (wsp[0]>1000)?990:wsp[0];
+            wsp[1] = (wsp[1]<200)?200:wsp[1];
+            wsp[1] = (wsp[1]>220)?220:wsp[1];
         }
     }
 
@@ -33,8 +33,8 @@ public class Chemist {
 
         klawisze  = new boolean[4];
         wsp    = new int[2];
-        wsp[0] = -540;
-        wsp[1] = 150;
+        wsp[0] = 190;
+        wsp[1] = 200;
 
         zegar = new Timer();
         zegar.scheduleAtFixedRate(new Run(),0,8);

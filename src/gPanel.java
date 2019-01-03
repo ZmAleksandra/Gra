@@ -6,8 +6,6 @@
 
  public class gPanel extends JPanel {
 
-     public int sWidth;
-     public int sHeight;
      public boolean help;
      public boolean [] clicked;
      public GameStatus gStatus;
@@ -25,16 +23,14 @@
          gStatus.reset();
          tubes.level(gStatus.level);
          menuFont = new Font("Dialog", Font.ITALIC , 28);
-         alertFont = new Font("Dialog", Font.BOLD, 92);
-         this.sWidth = width;
-         this.sHeight = height;
+         alertFont = new Font("Dialog", Font.BOLD, 52);;
          help=false;
          clicked=new boolean[8];
          for(int i=0;i<8;i++)
              clicked[i]=false;
          restartGame();
 
-         addMouseListener(new MouseAdapter()
+         addMouseListener(new MouseAdapter()//wciśnięcie myszki
          {
              @Override
              public void mouseClicked(MouseEvent me) {
@@ -75,7 +71,7 @@
                          Parameters.pause = false;
                      }
                  }
-
+                    //wybranie probowki
                     if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595) {
 
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
@@ -91,7 +87,7 @@
      }
 
      @Override
-     protected void paintComponent(Graphics gs) {
+     protected void paintComponent(Graphics gs) {//rysowanie
 
          Graphics2D g = (Graphics2D) gs;
 
@@ -102,6 +98,7 @@
          int d=20;
          int i=0;
          int b=0;
+         //rysowanie probowek w wiadrze
          for (int y =410; y < 520; y =y+dy) {
             for (int x=30;x<180;x=x+dx)
               {
@@ -110,13 +107,23 @@
                      i++;
              }
          }
+
+         //przenoszenie probowek
+
+         for(int a=0;a<8; a++)
+         {
+             if (ch.wsp[0] < 192 && clicked[a]) {
+                 g.drawImage(tubes.tTube[a], 163, 350, null);
+             }
+         }
         for(int a=0;a<8; a++)
         {
-            if (ch.wsp[0] + 150 < 400 && clicked[a]) {
-                g.drawImage(tubes.tTube[a], ch.wsp[0] + 780, ch.wsp[1] + 150, null);
+            if (ch.wsp[0] >192 && ch.wsp[0] < 980 && clicked[a]) {
+                g.drawImage(tubes.tTube[a], ch.wsp[0] + 80, ch.wsp[1] + 150, null);
             }
         }
-        if(ch.wsp[0]+150>400 )
+        //umieszczenie probowek w wiadrze
+        if(ch.wsp[0]>980 )
         {
             int x=1080;
             while(x<1390 && b<8) {
@@ -130,24 +137,31 @@
 
             }
         }
+         //rysowanie stosownego ludzika
+         if (ch.wsp[0]>192)
+             g.drawImage(Parameters.chemist2,ch.wsp[0],ch.wsp[1],null);
+         else
+             g.drawImage(Parameters.chemist1,ch.wsp[0],ch.wsp[1],null);
+         //rysowanie tytulu grupy zwiazkow
+         g.drawImage(tubes.title,1100,440,null);
+
+        //opis postepowania w grze
         if(help)
         {
-            g.setColor(new Color(135, 101, 82));
+            g.setColor(new Color(161, 148, 111));
             g.fillRect(300, 180, 880, 180);
             g.setColor(Color.black);
             g.setFont(menuFont);
             g.drawString("Klikając myszką wybierz probówki, które Twoim ", 330, 230);
             g.drawString("zdaniem pasują do kategorii podanej na zbiorniku na mecie.",330, 260);
             g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawdziwych probówek, ", 330, 290);
-            g.drawString("dostarcz je na metę poruszając sie strzałkami na klawiaturze", 330, 320);
+            g.drawString("dostarcz je na metę poruszając się strzałkami na klawiaturze.", 330, 320);
         }
 
-        g.drawImage(Parameters.chemist2,ch.wsp[0],ch.wsp[1],null);
-         g.drawImage(tubes.title,1100,440,null);
 
          g.setColor(Color.black);
          g.setFont(menuFont);
-
+            //jesli wybrano MENU
          if (Parameters.pause && !help) {
              g.drawImage(Parameters.play,1130,10,null);
              g.drawImage(Parameters.theEnd,1036,70,null);
@@ -159,18 +173,20 @@
              g.drawString(""+ (gStatus.time), 770, 660);
              g.drawImage(Parameters.points,440,625,null);
              g.drawString("" + gStatus.points, 560, 660);
-
+            //jesli zakonczono gre
              if (Parameters.end) {
-                 g.setColor(Color.RED);
+                 g.setColor(new Color(32, 75, 172));
+                 g.fillRect(300, 180, 600, 280);
+                 g.setColor(Color.white);
                  g.setFont(alertFont);
                  DecimalFormat df = new DecimalFormat("#.##");
-                 g.drawString("KONIEC GRY! ", 170, sHeight / 2);
-                 g.drawString("CZAS RAZEM=" + df.format(gStatus.time) + "s", 10, sHeight / 2 + 100);
-                 g.setColor(Color.white);
-                 g.setFont(menuFont);
+                 g.drawString("KONIEC GRY! ", 390, 270);
+                 g.drawString("Łączny czas gry:" + df.format(gStatus.time) + "s", 330, 340);
+                 g.drawString("Punkty razem:" + df.format(gStatus.points), 330, 410);
              }
 
          }
+         //jesli nie wybrano menu
          else {
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
@@ -179,45 +195,46 @@
              g.drawImage(Parameters.points,440,625,null);
 
 
-  //czy ukończono poziom
-             if (ch.wsp[0]+150>400) {
+        //czy ukończono poziom
+             if (ch.wsp[0]>980) {
                  if (!Parameters.levelPause) {
 
                      long stopTime = System.currentTimeMillis();
                      Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
                      Parameters.levelPause = true;
+                     //uspienie
                      try {
                          wait(1000);
                      } catch (InterruptedException e)  {
                          Thread.currentThread().interrupt();
 
                      }
-                     if (Parameters.MoveMODE < Parameters.n_levels) {
-                         Parameters.MoveMODE++;
+                    //kolejny poziom
+                     if (Parameters.n_levels < Parameters.n_levels) {
+                         gStatus.level++;
                          gStatus.time += Parameters.levelTime;
                          Parameters.levelPause = false;
                          Parameters.bgImage = Parameters.loadImage("images/background.png");
                          gStatus.nextLevel();
                          restartGame();
-                         Parameters.end = true;
+
                      } else
                      {
+                         //jesli nie ma juz iwceje poziomow to koniec gry
                          Parameters.end = true;
                          gStatus.time += Parameters.levelTime;
                          Parameters.pause = true;
                      }
                      repaint();
                  }
-
                  g.drawString("" + gStatus.points, 560, 660);
-                 g.drawImage(Parameters.menuImage,1130,10,null);
 
             }
-            else
-
                 g.drawImage(Parameters.menuImage,1130,10,null);
+            //jesli nie wybrano POMOC
             if(!help)
                 g.drawImage(Parameters.help,1130,70,null);
+            //jesli wybrano POMOC
             else
                 g.drawImage(Parameters.closehelp,1130,70,null);
 
@@ -229,6 +246,7 @@
 
          Parameters.startTime = System.currentTimeMillis();
          Parameters.pause = false;
+
 
      }
  }

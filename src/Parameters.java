@@ -5,6 +5,9 @@
 
      public static long GAME_TIME=Long.MAX_VALUE;
      public final static long n_levels=5;
+     public static long startTime;
+     public static double levelTime;
+     public static int MoveMODE=1;
      public static Image bgImage;
      public static Image chemist1;
      public static Image chemist2;
@@ -25,9 +28,7 @@
      public static Image[] testTubes;
      public static boolean pause=false;
      public static boolean levelPause=false;
-     public static long startTime;
-     public static double levelTime;
-     public static int MoveMODE=1;
+
      public static boolean end=false;
      public static int n=8;
      public static int gWidth=1280;
