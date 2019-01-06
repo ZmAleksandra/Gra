@@ -81,24 +81,7 @@
                         else
                             gStatus.points--;
                     }
-                 //kolejny level
-                 if(Parameters.levelPause && !Parameters.pause) {
-                     if (Parameters.MoveMODE < Parameters.n_levels) {
-                         Parameters.MoveMODE++;
-                         gStatus.time += Parameters.levelTime;
-                         Parameters.levelPause = false;
-                         Parameters.bgImage = Parameters.loadImage("images/background.png");
-                         gStatus.nextLevel();
-                         restartGame();
 
-                     } else {
-                         //jesli nie ma juz wiecej poziomow to koniec gry
-                         Parameters.end = true;
-                         gStatus.time += Parameters.levelTime;
-                         Parameters.pause = true;
-                     }
-                     repaint();
-                 }
              }//koniec mouseClicked()
          });
      }
@@ -223,6 +206,24 @@
                      Parameters.levelPause = true;
                      move.position[0] = 190;
                      move.position[1] = 200;
+                     //kolejny level
+                     if(Parameters.levelPause ) {
+                         if (Parameters.MoveMODE < Parameters.n_levels) {
+                             Parameters.MoveMODE++;
+                             gStatus.time += Parameters.levelTime;
+                             Parameters.levelPause = false;
+                             Parameters.bgImage = Parameters.loadImage("images/background.png");
+                             gStatus.nextLevel();
+                             restartGame();
+
+                         } else {
+                             //jesli nie ma juz wiecej poziomow to koniec gry
+                             Parameters.end = true;
+                             gStatus.time += Parameters.levelTime;
+                             Parameters.pause = true;
+                         }
+                         repaint();
+                     }
                  }
 
                  g.drawString("" + gStatus.points, 560, 660);
