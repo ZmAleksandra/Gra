@@ -59,6 +59,7 @@
                          repaint();
 
                  }
+
                  //wybranie help
                  if (me.getX() > (1130)&& me.getX() < (1250) && me.getY() > 80  && me.getY() <115) {
 
@@ -72,16 +73,32 @@
                      }
                  }
                     //wybranie probowki
-                    if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595) {
+                    if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]) {
 
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
                         if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
                              gStatus.points++;
                         else
                             gStatus.points--;
-
                     }
+                 //kolejny poziom
+                 if(Parameters.levelPause && !Parameters.pause) {
+                     if (Parameters.MoveMODE < Parameters.n_levels) {
+                         Parameters.MoveMODE++;
+                         gStatus.time += Parameters.levelTime;
+                         Parameters.levelPause = false;
+                         Parameters.bgImage = Parameters.loadImage("images/background.png");
+                         gStatus.nextLevel();
+                         restartGame();
 
+                     } else {
+                         //jesli nie ma juz wiecej poziomow to koniec gry
+                         Parameters.end = true;
+                         gStatus.time += Parameters.levelTime;
+                         Parameters.pause = true;
+                     }
+                     repaint();
+                 }
              }//koniec mouseClicked()
          });
      }
@@ -149,37 +166,40 @@
         if(help)
         {
             g.setColor(new Color(161, 148, 111));
-            g.fillRect(300, 180, 880, 180);
+            g.fillRect(300, 180, 880, 230);
             g.setColor(Color.black);
             g.setFont(menuFont);
             g.drawString("Klikając myszką wybierz probówki, które Twoim ", 330, 230);
             g.drawString("zdaniem pasują do kategorii podanej na zbiorniku na mecie.",330, 260);
             g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawdziwych probówek, ", 330, 290);
             g.drawString("dostarcz je na metę poruszając się strzałkami na klawiaturze.", 330, 320);
+            g.drawString("Poziom 1 i 2: max 4 probówki, poziom 3 i 4: max 3 probówki,", 330, 350);
+            g.drawString("poziom 5: dwie probówki.", 330, 380);
         }
 
 
          g.setColor(Color.black);
          g.setFont(menuFont);
+         DecimalFormat df = new DecimalFormat("#.##");
             //jesli wybrano MENU
          if (Parameters.pause && !help) {
+             //rysuj MENU
              g.drawImage(Parameters.play,1130,10,null);
              g.drawImage(Parameters.theEnd,1036,70,null);
              g.drawImage(Parameters.newGame ,1053,115,null);
-
+             //rysuj informacje o statusie gry
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
              g.drawImage(Parameters.time ,670,630,null);
-             g.drawString(""+ (gStatus.time), 770, 660);
+             g.drawString(""+ df.format(gStatus.time)+"s", 755, 660);
              g.drawImage(Parameters.points,440,625,null);
              g.drawString("" + gStatus.points, 560, 660);
             //jesli zakonczono gre
              if (Parameters.end) {
                  g.setColor(new Color(32, 75, 172));
-                 g.fillRect(300, 180, 600, 280);
+                 g.fillRect(300, 180, 620, 280);
                  g.setColor(Color.white);
                  g.setFont(alertFont);
-                 DecimalFormat df = new DecimalFormat("#.##");
                  g.drawString("KONIEC GRY! ", 390, 270);
                  g.drawString("Łączny czas gry:" + df.format(gStatus.time) + "s", 330, 340);
                  g.drawString("Punkty razem:" + df.format(gStatus.points), 330, 410);
@@ -190,43 +210,26 @@
          else {
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
-             g.drawImage(Parameters.time ,670,630,null);
-             g.drawString(""+ (gStatus.time), 770, 660);
+             g.drawImage(Parameters.time ,665,630,null);
+             g.drawString(""+ df.format((System.currentTimeMillis()-Parameters.startTime)/1000.0)+"s", 755, 660);
              g.drawImage(Parameters.points,440,625,null);
 
 
         //czy ukończono poziom
-             if (ch.wsp[0]>980) {
+             if (ch.wsp[0]>950) {
                  if (!Parameters.levelPause) {
-
                      long stopTime = System.currentTimeMillis();
                      Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
                      Parameters.levelPause = true;
-                     //uspienie
-                     try {
-                         wait(1000);
-                     } catch (InterruptedException e)  {
-                         Thread.currentThread().interrupt();
-
-                     }
-                    //kolejny poziom
-                     if (Parameters.n_levels < Parameters.n_levels) {
-                         gStatus.level++;
-                         gStatus.time += Parameters.levelTime;
-                         Parameters.levelPause = false;
-                         Parameters.bgImage = Parameters.loadImage("images/background.png");
-                         gStatus.nextLevel();
-                         restartGame();
-
-                     } else
-                     {
-                         //jesli nie ma juz iwceje poziomow to koniec gry
-                         Parameters.end = true;
-                         gStatus.time += Parameters.levelTime;
-                         Parameters.pause = true;
-                     }
-                     repaint();
                  }
+//                     //uspienie
+//                     try {
+//                         wait(1000);
+//                     } catch (InterruptedException e)  {
+//                         Thread.currentThread().interrupt();
+//
+//                     }
+
                  g.drawString("" + gStatus.points, 560, 660);
 
             }
