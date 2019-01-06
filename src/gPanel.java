@@ -221,6 +221,8 @@
                      long stopTime = System.currentTimeMillis();
                      Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
                      Parameters.levelPause = true;
+                     move.position[0] = 190;
+                     move.position[1] = 200;
                  }
 
                  g.drawString("" + gStatus.points, 560, 660);
