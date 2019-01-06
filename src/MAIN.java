@@ -1,6 +1,7 @@
 import java.awt.*;
+import java.io.File;
 
- public class MAIN{
+public class MAIN{
 public static void main(String[] args) {
          int gameWidth=1280;
          int gameHeight=720;
@@ -9,5 +10,7 @@ public static void main(String[] args) {
          int xCenter=(screenWidth-gameWidth)/2;
          int yCenter=(screenHeight-gameHeight)/2;
          Window gw=new Window(gameWidth,gameHeight,xCenter,yCenter);
+
+         Parameters.playSound(new File("sounds/milioners.3gp"));
      }
  }

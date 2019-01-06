@@ -3,6 +3,7 @@
  import java.awt.event.MouseAdapter;
  import java.awt.event.MouseEvent;
  import java.text.DecimalFormat;
+ import java.util.concurrent.TimeUnit;
 
  public class gPanel extends JPanel {
 
@@ -21,7 +22,7 @@
          gStatus = new GameStatus();
          tubes = new TubeTest();
          gStatus.reset();
-         tubes.level(gStatus.level);
+         tubes.level(5);//(gStatus.level);
          menuFont = new Font("Dialog", Font.ITALIC , 28);
          alertFont = new Font("Dialog", Font.BOLD, 52);;
          help=false;
@@ -73,7 +74,7 @@
                      }
                  }
                     //wybranie probowki
-                    if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]&& move.position[0] <192)
+                    if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]&& move.position[0] <195)
                     {
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
                         if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
@@ -138,7 +139,7 @@
             }
         }
          //rysowanie stosownego ludzika
-         if (move.position[0]>192)
+         if (move.position[0]>195)
              g.drawImage(Parameters.chemist2,move.position[0],move.position[1],null);
          else
              g.drawImage(Parameters.chemist1,move.position[0],move.position[1],null);
@@ -173,8 +174,8 @@
              //rysuj informacje o statusie gry
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
-             g.drawImage(Parameters.time ,670,630,null);
-             g.drawString(""+ df.format(gStatus.time)+"s", 755, 660);
+             g.drawImage(Parameters.time ,665,630,null);
+             g.drawString(""+ df.format((System.currentTimeMillis()-Parameters.startTime)/1000.0)+"s", 755, 660);
              g.drawImage(Parameters.points,440,625,null);
              g.drawString("" + gStatus.points, 560, 660);
             //jesli zakonczono gre
@@ -186,6 +187,10 @@
                  g.drawString("KONIEC GRY! ", 390, 270);
                  g.drawString("Łączny czas gry:" + df.format(gStatus.time) + "s", 330, 340);
                  g.drawString("Punkty razem:" + df.format(gStatus.points), 330, 410);
+                 g.drawImage(Parameters.time ,665,630,null);
+                 g.setColor(Color.black);
+                 g.setFont(menuFont);
+                 g.drawString(""+ df.format(gStatus.time)+"s", 755, 660);
              }
 
          }
@@ -204,8 +209,14 @@
                      long stopTime = System.currentTimeMillis();
                      Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
                      Parameters.levelPause = true;
+                     try {
+                         TimeUnit.SECONDS.sleep(1);
+                     } catch (InterruptedException e) {
+                         e.printStackTrace();
+                     }
                      move.position[0] = 190;
                      move.position[1] = 200;
+
                      //kolejny level
                      if (Parameters.levelPause) {
                          if (Parameters.MoveMODE < Parameters.n_levels) {
@@ -221,6 +232,7 @@
                              Parameters.end = true;
                              gStatus.time += Parameters.levelTime;
                              Parameters.pause = true;
+
                          }
                          repaint();
                      }

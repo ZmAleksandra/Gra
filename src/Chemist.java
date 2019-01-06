@@ -17,8 +17,6 @@ public class Chemist {
             if(klawisze[1])
                 position[1]+=1;
 
-            if(klawisze[2])
-                position[0]-=1;
             if(klawisze[3])
                 position[0]+=1;
 
@@ -46,8 +44,6 @@ public class Chemist {
                                             klawisze[0] = true; break;
                                         case KeyEvent.VK_DOWN:
                                             klawisze[1] = true; break;
-                                        case KeyEvent.VK_LEFT:
-                                            klawisze[2] = true; break;
                                         case KeyEvent.VK_RIGHT:
                                             klawisze[3] = true; break;
                                     }
@@ -59,8 +55,6 @@ public class Chemist {
                                             klawisze[0] = false; break;
                                         case KeyEvent.VK_DOWN:
                                             klawisze[1] = false; break;
-                                        case KeyEvent.VK_LEFT:
-                                            klawisze[2] = false; break;
                                         case KeyEvent.VK_RIGHT:
                                             klawisze[3] = false; break;
                                     }

@@ -1,5 +1,10 @@
  import javax.swing.*;
  import java.awt.*;
+ import java.io.File;
+ import javax.sound.sampled.AudioInputStream;
+ import javax.sound.sampled.AudioSystem;
+ import javax.sound.sampled.Clip;
+
 
  public class Parameters {
 
@@ -28,14 +33,26 @@
      public static Image[] testTubes;
      public static boolean pause=false;
      public static boolean levelPause=false;
-
      public static boolean end=false;
-     public static int n=8;
      public static int gWidth=1280;
      public static int gHeight=720;
 
-     public static void loadInitialImages() {
+     public static synchronized void playSound(final File f) {
+         new Thread(new Runnable() {//współbieżnie wykonywany wątek, baloniki lataja i jest odtwarzany dźwięk
+             public void run() {
+                 try {
+                     Clip clip = AudioSystem.getClip();
+                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(f);
+                     clip.open(inputStream);
+                     clip.start();
+                 } catch (Exception e) {
+                     System.err.println(e.getMessage());
+                 }
+             }
+         }).start();
+     }//playSound()
 
+     public static void loadInitialImages() {
          bgImage = loadImage("images/background.png");
          chemist1= loadImage("images/ludek1.png");
          chemist2= loadImage("images/ludek2.png");
