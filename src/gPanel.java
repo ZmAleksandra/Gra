@@ -20,8 +20,6 @@
      //obiekt klasy TubeTest
      public TubeTest tubes;
 
-
-
      public gPanel(int width, int height, JFrame jFrame) {
          move = new Chemist(jFrame);
          gStatus = new GameStatus();
@@ -86,7 +84,7 @@
                     {
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
                         if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
-                             gStatus.points++;
+                        gStatus.points++;
                         else
                             gStatus.points--;
                     }
@@ -222,8 +220,7 @@
                      } catch (InterruptedException e) {
                          e.printStackTrace();
                      }
-                     move.position[0] = 190;
-                     move.position[1] = 200;
+
                  }
                      //kolejny level
                  if (Parameters.levelPause) {
@@ -268,7 +265,10 @@
 
          Parameters.startTime = System.currentTimeMillis();
          Parameters.pause = false;
-
-
+         tubes.level(gStatus.level);
+         move.position[0] = 190;
+         move.position[1] = 200;
+         for(int i=0;i<8;i++)
+             clicked[i]=false;
      }
  }
