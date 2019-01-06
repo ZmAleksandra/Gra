@@ -5,7 +5,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 public class Chemist {
     private boolean klawisze[];
-    int wsp[];
+    int position[];
     private Timer  zegar;
     class Run extends TimerTask{
 
@@ -13,28 +13,28 @@ public class Chemist {
         {
 
             if(klawisze[0])
-                wsp[1]-=1;
+                position[1]-=1;
             if(klawisze[1])
-                wsp[1]+=1;
+                position[1]+=1;
 
             if(klawisze[2])
-                wsp[0]-=1;
+                position[0]-=1;
             if(klawisze[3])
-                wsp[0]+=1;
+                position[0]+=1;
 
-            wsp[0] = (wsp[0]<190)?190:wsp[0];
-            wsp[0] = (wsp[0]>1000)?990:wsp[0];
-            wsp[1] = (wsp[1]<200)?200:wsp[1];
-            wsp[1] = (wsp[1]>220)?220:wsp[1];
+            position[0] = (position[0]<190)?190:position[0];
+            position[0] = (position[0]>1000)?990:position[0];
+            position[1] = (position[1]<200)?200:position[1];
+            position[1] = (position[1]>220)?220:position[1];
         }
     }
 
   Chemist(JFrame jFrame){
 
         klawisze  = new boolean[4];
-        wsp    = new int[2];
-        wsp[0] = 190;
-        wsp[1] = 200;
+        position    = new int[2];
+      position[0] = 190;
+      position[1] = 200;
 
         zegar = new Timer();
         zegar.scheduleAtFixedRate(new Run(),0,8);

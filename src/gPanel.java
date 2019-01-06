@@ -11,13 +11,13 @@
      public GameStatus gStatus;
      public Font menuFont;
      public Font alertFont;
-     public Chemist ch;
+     public Chemist move;
      public TubeTest tubes;
 
 
 
      public gPanel(int width, int height, JFrame jFrame) {
-         ch = new Chemist(jFrame);
+         move = new Chemist(jFrame);
          gStatus = new GameStatus();
          tubes = new TubeTest();
          gStatus.reset();
@@ -129,18 +129,18 @@
 
          for(int a=0;a<8; a++)
          {
-             if (ch.wsp[0] < 192 && clicked[a]) {
+             if (move.position[0] < 192 && clicked[a]) {
                  g.drawImage(tubes.tTube[a], 163, 350, null);
              }
          }
         for(int a=0;a<8; a++)
         {
-            if (ch.wsp[0] >192 && ch.wsp[0] < 980 && clicked[a]) {
-                g.drawImage(tubes.tTube[a], ch.wsp[0] + 80, ch.wsp[1] + 150, null);
+            if (move.position[0] >192 && move.position[0] < 980 && clicked[a]) {
+                g.drawImage(tubes.tTube[a], move.position[0] + 80, move.position[1] + 150, null);
             }
         }
         //umieszczenie probowek w wiadrze
-        if(ch.wsp[0]>980 )
+        if(move.position[0]>980 )
         {
             int x=1080;
             while(x<1390 && b<8) {
@@ -155,10 +155,10 @@
             }
         }
          //rysowanie stosownego ludzika
-         if (ch.wsp[0]>192)
-             g.drawImage(Parameters.chemist2,ch.wsp[0],ch.wsp[1],null);
+         if (move.position[0]>192)
+             g.drawImage(Parameters.chemist2,move.position[0],move.position[1],null);
          else
-             g.drawImage(Parameters.chemist1,ch.wsp[0],ch.wsp[1],null);
+             g.drawImage(Parameters.chemist1,move.position[0],move.position[1],null);
          //rysowanie tytulu grupy zwiazkow
          g.drawImage(tubes.title,1100,440,null);
 
@@ -216,19 +216,12 @@
 
 
         //czy ukończono poziom
-             if (ch.wsp[0]>950) {
+             if (move.position[0]>980) {
                  if (!Parameters.levelPause) {
                      long stopTime = System.currentTimeMillis();
                      Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
                      Parameters.levelPause = true;
                  }
-//                     //uspienie
-//                     try {
-//                         wait(1000);
-//                     } catch (InterruptedException e)  {
-//                         Thread.currentThread().interrupt();
-//
-//                     }
 
                  g.drawString("" + gStatus.points, 560, 660);
 
