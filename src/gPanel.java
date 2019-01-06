@@ -81,7 +81,7 @@
                         else
                             gStatus.points--;
                     }
-                 //kolejny poziom
+                 //kolejny level
                  if(Parameters.levelPause && !Parameters.pause) {
                      if (Parameters.MoveMODE < Parameters.n_levels) {
                          Parameters.MoveMODE++;
