@@ -7,15 +7,16 @@ public class TubeTest
     public Image title;
     public boolean [] answers;
 
-    public TubeTest()
+    public TubeTest()//konstruktor klasy
     {
         tTube= new Image [8];
         answers = new boolean[8];
     }
 
+    // metoda odpowiedzialna za losowanie właściwych probówek w zależnosci od poziomu gry
  public void level (int nLevel)
  {
-
+// tworzenie tablicy typu int
  int numbers [] = new int [31];
  for(int i=0; i<31;i++)
   numbers[i]=i;
@@ -23,19 +24,19 @@ public class TubeTest
      Random r = new Random();
      Image []good = null;
      Image []bad = null ;
-
+//w zależności od poziomu losuj właściwe probówki
          if(nLevel==1)
          {
              int i = 0;
              int indeks;
-             good= new Image[4];
-             bad = new Image[4];
-             while (i!=4)
+             good= new Image[4];//4 probówki dobre
+             bad = new Image[4];//4 probowki złe
+             while (i!=4)//losowanie 4 dorych probówek
              {
                  indeks=r.nextInt(16);
-                 if(numbers[indeks]!=-1)
+                 if(numbers[indeks]!=-1)//zapobieganie ponownemu wylosowaniu tego samego obrazka
                  {
-                     good[i]=Parameters.testTubes[indeks];
+                     good[i]=Parameters.testTubes[indeks];//przypisanie wylosowanego indeksu do tablicy obrazków
                      numbers[indeks]=-1;
                      i++;
                  }
@@ -51,7 +52,7 @@ public class TubeTest
                      i++;
                  }
              }
-             title = Parameters.title1;
+             title = Parameters.title1;// przypisanie kategorii wyświetlanej na wiadrze dla danego lewelu
 
          }
 
@@ -182,10 +183,10 @@ public class TubeTest
          this.hash (good,bad);
  }
 
+//metoda losująca położenie probówek we wiadrze na starcie
  public  void hash(Image[] good,Image[] bad)
  {
      Image [] tTube1 = new Image[8];
-     int [] gAnswer = new int [good.length];
      Random r = new Random();
     int counter = 0;
     int countgood=0;
@@ -193,15 +194,14 @@ public class TubeTest
 
 while ( counter<8)
 {
- int value = r.nextInt(2);
-
+ int value = r.nextInt(2);//losowanie wartości 0 lub 1
+//jesli wylosowano 0 i ilośc dobrych probówek jest mniejsza od maksymalnego rozmiaru tablicy
  if(value == 0  && countgood < good.length)
  {
-  tTube1 [counter]= good[countgood];
- //gAnswer[countgood]=counter;
+     tTube1 [counter]= good[countgood];
      answers[counter]=true;
-  counter ++;
-  countgood ++;
+     counter ++;
+     countgood ++;
 
  }
  if(value == 1  && countbad < bad.length)
@@ -216,6 +216,7 @@ while ( counter<8)
 
     tTube=tTube1;
     }
+    // metoda przypisująca indeks w zależności od położenia probówki
 public  int getindex(int x, int y)
     {
      int index=0;

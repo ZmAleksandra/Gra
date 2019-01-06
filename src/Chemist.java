@@ -3,23 +3,25 @@ import java.awt.event.KeyListener;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
+
 public class Chemist {
+
     private boolean klawisze[];
     int position[];
     private Timer  zegar;
-    class Run extends TimerTask{
 
+class Run extends TimerTask{
+        //metoda umożliwiająca zmianę położenia bohatera w zależnosci od wciśniętego klawisza
         public void run()
         {
-
             if(klawisze[0])
                 position[1]-=1;
             if(klawisze[1])
                 position[1]+=1;
-
             if(klawisze[3])
                 position[0]+=1;
 
+            //zakres obszaru poruszania się bohatera gry
             position[0] = (position[0]<190)?190:position[0];
             position[0] = (position[0]>1000)?990:position[0];
             position[1] = (position[1]<200)?200:position[1];
@@ -29,15 +31,17 @@ public class Chemist {
 
   Chemist(JFrame jFrame){
 
-        klawisze  = new boolean[4];
-        position    = new int[2];
+      klawisze  = new boolean[4];
+      position    = new int[2];
+      //początkowe położenie bohatera gry
       position[0] = 190;
       position[1] = 200;
 
         zegar = new Timer();
+      //określenie okresu przeuswania się bohatera gry po naciśnięciu strzałki na klawiaturze
         zegar.scheduleAtFixedRate(new Run(),0,8);
         jFrame.addKeyListener(new KeyListener(){
-
+                                //postępowanie gdy wciśnięta strzałka
                                 public void keyPressed(KeyEvent e){
                                     switch(e.getKeyCode()){
                                         case KeyEvent.VK_UP:
@@ -48,7 +52,7 @@ public class Chemist {
                                             klawisze[3] = true; break;
                                     }
                                 }
-
+                                //postępowanie gdy puszczona strzałka
                                 public void keyReleased(KeyEvent e){
                                     switch(e.getKeyCode()){
                                         case KeyEvent.VK_UP:

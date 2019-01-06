@@ -4,15 +4,20 @@
  import java.awt.event.MouseEvent;
  import java.text.DecimalFormat;
  import java.util.concurrent.TimeUnit;
-
  public class gPanel extends JPanel {
 
+
+     //zmienna odpowiedzialna za kliknięcie pomocy
      public boolean help;
+     //czy kliknięto probówkę
      public boolean [] clicked;
+     //obiekt klasy GameStatus
      public GameStatus gStatus;
      public Font menuFont;
      public Font alertFont;
+     //obiekt klasy Chemist
      public Chemist move;
+     //obiekt klasy TubeTest
      public TubeTest tubes;
 
 
@@ -22,9 +27,11 @@
          gStatus = new GameStatus();
          tubes = new TubeTest();
          gStatus.reset();
-         tubes.level(5);//(gStatus.level);
+         tubes.level(gStatus.level);
+         //czcionka wyświetlania zmieniającego się stanu gry
          menuFont = new Font("Dialog", Font.ITALIC , 28);
-         alertFont = new Font("Dialog", Font.BOLD, 52);;
+         //czcionka zakończenia gry
+         alertFont = new Font("Dialog", Font.BOLD, 52);
          help=false;
          clicked=new boolean[8];
          for(int i=0;i<8;i++)
@@ -33,6 +40,7 @@
 
          addMouseListener(new MouseAdapter()//wciśnięcie myszki
          {
+
              @Override
              public void mouseClicked(MouseEvent me) {
 
@@ -216,27 +224,28 @@
                      }
                      move.position[0] = 190;
                      move.position[1] = 200;
-
+                 }
                      //kolejny level
-                     if (Parameters.levelPause) {
-                         if (Parameters.MoveMODE < Parameters.n_levels) {
-                             Parameters.MoveMODE++;
-                             gStatus.time += Parameters.levelTime;
-                             Parameters.levelPause = false;
-                             Parameters.bgImage = Parameters.loadImage("images/background.png");
-                             gStatus.nextLevel();
-                             restartGame();
+                 if (Parameters.levelPause) {
+                     if (Parameters.MoveMODE < Parameters.n_levels) {
+                         Parameters.MoveMODE++;
+                         gStatus.time += Parameters.levelTime;
+                         Parameters.levelPause = false;
+                         Parameters.bgImage = Parameters.loadImage("images/background.png");
+                         gStatus.nextLevel();
+                         restartGame();
 
-                         } else {
+                     } else
+                     {
                              //jesli nie ma juz wiecej poziomow to koniec gry
-                             Parameters.end = true;
-                             gStatus.time += Parameters.levelTime;
-                             Parameters.pause = true;
+                         Parameters.end = true;
+                         gStatus.time += Parameters.levelTime;
+                         Parameters.pause = true;
 
-                         }
+                     }
                          repaint();
                      }
-                 }
+
              }
              if (move.position[0]>960)
                  g.drawString("" + gStatus.points, 560, 660);
