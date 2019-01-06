@@ -27,27 +27,27 @@ public class TubeTest
          if(nLevel==1)
          {
              int i = 0;
-             int xmaas;
+             int indeks;
              good= new Image[4];
              bad = new Image[4];
              while (i!=4)
              {
-                 xmaas=r.nextInt(16);
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(16);
+                 if(numbers[indeks]!=-1)
                  {
-                     good[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     good[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
              i=0;
              while (i!=4)
              {
-                 xmaas=r.nextInt(15)+16;
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(15)+16;
+                 if(numbers[indeks]!=-1)
                  {
-                     bad[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     bad[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
@@ -58,27 +58,27 @@ public class TubeTest
          if(nLevel==2)
          {
              int i = 0;
-             int xmaas;
+             int indeks;
              good= new Image[4];
              bad = new Image[4];
              while (i!=4)
              {
-                 xmaas=r.nextInt(9);
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(9);
+                 if(numbers[indeks]!=-1)
                  {
-                     good[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     good[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
              i=0;
              while (i!=4)
              {
-                 xmaas=r.nextInt(22)+9;
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(22)+9;
+                 if(numbers[indeks]!=-1)
                  {
-                     bad[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     bad[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
@@ -88,28 +88,28 @@ public class TubeTest
          if(nLevel==3)
          {
              int i = 0;
-             int xmaas;
+             int indeks;
            good= new Image[3];
             bad = new Image[5];
              while (i!=3)
              {
-                 xmaas=r.nextInt(7)+9;
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(7)+9;
+                 if(numbers[indeks]!=-1)
                  {
-                     good[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     good[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
              i=0;
              while (i!=5)
              {
-                 xmaas=r.nextInt(31);
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(31);
+                 if(numbers[indeks]!=-1)
                  {
-                     if(xmaas<9||xmaas>15) {
-                         bad[i] = Parameters.testTubes[xmaas];
-                         numbers[xmaas]=-1;
+                     if(indeks<9||indeks>15) {
+                         bad[i] = Parameters.testTubes[indeks];
+                         numbers[indeks]=-1;
                          i++;
                      }
 
@@ -120,27 +120,27 @@ public class TubeTest
          if(nLevel==4)
          {
              int i = 0;
-             int xmaas;
+             int indeks;
              good= new Image[3];
              bad = new Image[5];
              while (i!=3)
              {
-                 xmaas=r.nextInt(7);
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(7);
+                 if(numbers[indeks]!=-1)
                  {
-                     good[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     good[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
              i=0;
              while (i!=5)
              {
-                 xmaas=r.nextInt(24)+7;
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(24)+7;
+                 if(numbers[indeks]!=-1)
                  {
-                     bad[i]=Parameters.testTubes[xmaas];
-                     numbers[xmaas]=-1;
+                     bad[i]=Parameters.testTubes[indeks];
+                     numbers[indeks]=-1;
                      i++;
                  }
              }
@@ -149,17 +149,17 @@ public class TubeTest
          if(nLevel==5)
          {
              int i = 0;
-             int xmaas;
+             int indeks;
              good= new Image[2];
              bad = new Image[6];
              while (i!=2)
              {
-                 xmaas=r.nextInt(5)*2;
-                 if(numbers[xmaas]!=-1)
-                 {
-                     good[0]=Parameters.testTubes[xmaas+16];
-                     good[1]=Parameters.testTubes[xmaas+17];
-                     numbers[xmaas]=-1;
+                 indeks=r.nextInt(5)*2;
+                 if(numbers[indeks]!=-1)
+                     {
+                     good[0]=Parameters.testTubes[indeks+16];
+                     good[1]=Parameters.testTubes[indeks+17];
+                     numbers[indeks]=-1;
                      i+=2;
                  }
 
@@ -167,12 +167,12 @@ public class TubeTest
              i=0;
              while (i!=6)
              {
-                 xmaas=r.nextInt(31);
-                 if(numbers[xmaas]!=-1)
+                 indeks=r.nextInt(31);
+                 if(numbers[indeks]!=-1)
                  {
-                     if(xmaas<16||xmaas>25) {
-                         bad[i] = Parameters.testTubes[xmaas];
-                         numbers[xmaas]=-1;
+                     if(indeks<16||indeks>25) {
+                         bad[i] = Parameters.testTubes[indeks];
+                         numbers[indeks]=-1;
                          i++;
                      }
                  }
@@ -222,7 +222,6 @@ public  int getindex(int x, int y)
     if(y>508)
     {
         index+=4;
-
     }
     if(x>105)
     {

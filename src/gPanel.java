@@ -73,8 +73,8 @@
                      }
                  }
                     //wybranie probowki
-                    if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]) {
-
+                    if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]&& move.position[0] <192)
+                    {
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
                         if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
                              gStatus.points++;
@@ -118,12 +118,12 @@
          }
         for(int a=0;a<8; a++)
         {
-            if (move.position[0] >192 && move.position[0] < 980 && clicked[a]) {
+            if (move.position[0] >192 && move.position[0] < 960 && clicked[a]) {
                 g.drawImage(tubes.tTube[a], move.position[0] + 80, move.position[1] + 150, null);
             }
         }
         //umieszczenie probowek w wiadrze
-        if(move.position[0]>980 )
+        if(move.position[0]>960 )
         {
             int x=1080;
             while(x<1390 && b<8) {
@@ -207,7 +207,7 @@
                      move.position[0] = 190;
                      move.position[1] = 200;
                      //kolejny level
-                     if(Parameters.levelPause ) {
+                     if (Parameters.levelPause) {
                          if (Parameters.MoveMODE < Parameters.n_levels) {
                              Parameters.MoveMODE++;
                              gStatus.time += Parameters.levelTime;
@@ -225,10 +225,12 @@
                          repaint();
                      }
                  }
-
+             }
+             if (move.position[0]>960)
                  g.drawString("" + gStatus.points, 560, 660);
 
-            }
+
+
                 g.drawImage(Parameters.menuImage,1130,10,null);
             //jesli nie wybrano POMOC
             if(!help)
