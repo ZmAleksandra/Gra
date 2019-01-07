@@ -42,7 +42,7 @@ class Run extends TimerTask{
 
         zegar = new Timer();
       //określenie okresu przeuswania się bohatera gry po naciśnięciu strzałki na klawiaturze
-        zegar.scheduleAtFixedRate(new Run(),0,8);
+        zegar.scheduleAtFixedRate(new Run(),1,8);
         jFrame.addKeyListener(new KeyListener(){
                                 //postępowanie gdy wciśnięta strzałka
                                 public void keyPressed(KeyEvent e){

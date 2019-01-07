@@ -2,6 +2,7 @@
  import java.awt.*;
  import java.awt.event.MouseAdapter;
  import java.awt.event.MouseEvent;
+ import java.io.File;
  import java.text.DecimalFormat;
  import java.util.concurrent.TimeUnit;
  public class gPanel extends JPanel {
@@ -32,8 +33,6 @@
          alertFont = new Font("Dialog", Font.BOLD, 52);
          help=false;
          clicked=new boolean[8];
-         for(int i=0;i<8;i++)
-             clicked[i]=false;
          restartGame();
 
          addMouseListener(new MouseAdapter()//wciśnięcie myszki
@@ -83,6 +82,7 @@
                     if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]&& move.position[0] <195)
                     {
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
+                        Parameters.playSound(new File("sounds/click1.wav"));
                         if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
                         gStatus.points++;
                         else
