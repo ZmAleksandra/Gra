@@ -1,15 +1,17 @@
+package com.zmijewska.game;
+
  import java.awt.GridLayout;
  import java.awt.Toolkit;
  import java.io.File;
  import javax.swing.JFrame;
 
  /**
-  * Główne okno gry
+  * Glowne okno gry,zarzadzanie czasem gry
   * @author Aleksandra Żmijewksa
   */
  public class Window extends JFrame {
      /**
-      * Główny konstruktor klasy - ustawienie parametrów i rozpoczęcia akcji
+      * Glowny konstruktor klasy - ustawienie parametrow i rozpoczecia akcji
       *
       * @param width  szerokość okna
       * @param height wysokość okna
@@ -30,20 +32,19 @@
      /**
       * Utwórz interfejs graficzny użytkownika
       *
-      * @param width  szerokość okna
-      * @param height wysokość okna
+      * @param width  szerokosc okna
+      * @param height wysokosc okna
       */
      private void initGUI(int width, int height, JFrame jFrame) {
          setLayout(new GridLayout(1, 1));
          Parameters.loadInitialImages();
          Toolkit tk = Toolkit.getDefaultToolkit();
-         add(new gPanel(width, height, jFrame));
-         Parameters.playSound(new File("sounds/milioners.wav"));
+         add(new gPanel(jFrame));
+         Parameters.playSound(new File("sounds/milioners.wav"));//odtwarzanie dźwięku gry
      }
 
      /**
-      * Główna pętla gry - takt animacji (w procesie dalszej edukacji
-      * można używać wątków czy klasy Timer)
+      * Glowna petla gry, zarzadzanie czasem gry, wstrzymanie liczenia czasu gdy wybrano menu
       */
      private void animationLoop() {
          for (int i = 1; 1 > 0; i++) {

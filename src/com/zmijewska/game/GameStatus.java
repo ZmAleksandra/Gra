@@ -1,9 +1,10 @@
+package com.zmijewska.game;
 /**
  * Klasa pomocnicza z zapisem aktualnego stanu gry
  * @author Aleksandra Żmijewska
  */
    public class GameStatus{
-       /** Liczba zgromadzonych punktów*/
+       /** Liczba zgromadzonych punktow*/
         public int points;
        /** Numer poziomu */
         public int level;
@@ -19,7 +20,7 @@
             time=0.0;
         }
        /**
-        * Zwiększ wskaźnik poziomu
+        * Zwiększ wskaznik poziomu
         */
         public void nextLevel(){
             level++;

@@ -1,8 +1,9 @@
+package com.zmijewska.game;
 import java.awt.*;
 import java.util.Random;
 
 /**
- * Losowanie probówek, zarządzanie ich losowym wyświetlaniem
+ * Losowanie wyswietlanych probowek w zaleznosci od poziomu gry, ich losowe umieszczanie na wiadrze
  * @author Aleksandra Żmijewska
  */
 public class TubeTest
@@ -21,7 +22,7 @@ public class TubeTest
     }
 
     /**
-     * losowanie właściwych probówek w zależnosci od poziomu gry
+     * losowanie właściwych probowek w zaleznosci od poziomu gry
      * @param nLevel
      */
     public void level (int nLevel)
@@ -34,19 +35,19 @@ public class TubeTest
      Random r = new Random();
      Image []good = null;
      Image []bad = null ;
-    //w zależności od poziomu losuj właściwe probówki
+    //w zaleznosci od poziomu losuj właściwe probowki
          if(nLevel==1)
          {
              int i = 0;
              int indeks;
-             good= new Image[4];//4 probówki dobre
-             bad = new Image[4];//4 probowki złe
-             while (i!=4)//losowanie 4 dorych probówek
+             good= new Image[4];//4 probowki dobre
+             bad = new Image[4];//4 probowki zle
+             while (i!=4)//losowanie 4 dorych probowek
              {
                  indeks=r.nextInt(16);
                  if(numbers[indeks]!=-1)//zapobieganie ponownemu wylosowaniu tego samego obrazka
                  {
-                     good[i]=Parameters.testTubes[indeks];//przypisanie wylosowanego indeksu do tablicy obrazków
+                     good[i]=Parameters.testTubes[indeks];//przypisanie wylosowanego indeksu do tablicy obrazkow
                      numbers[indeks]=-1;
                      i++;
                  }
@@ -62,7 +63,7 @@ public class TubeTest
                      i++;
                  }
              }
-             title = Parameters.title1;// przypisanie kategorii wyświetlanej na wiadrze dla danego lewelu
+             title = Parameters.title1;// przypisanie kategorii wyswietlanej na wiadrze dla danego lewelu
 
          }
 
@@ -194,7 +195,7 @@ public class TubeTest
      }
 
     /**
-     * losowanie położenia probówek we wiadrze na starcie
+     * losowanie położenia probowek we wiadrze na starcie, ustalanie dobrych i zlych dla danej kategorii probowek
      * @param bad
      * @param good
      */
@@ -209,7 +210,7 @@ public class TubeTest
         while ( counter<8)
         {
         int value = r.nextInt(2);//losowanie wartości 0 lub 1
-        //jesli wylosowano 0 i ilośc dobrych probówek jest mniejsza od maksymalnego rozmiaru tablicy
+        //jesli wylosowano 0 i iloc dobrych probowek jest mniejsza od maksymalnego rozmiaru tablicy
             if(value == 0  && countgood < good.length)
             {
                  tTube1 [counter]= good[countgood];
@@ -218,6 +219,7 @@ public class TubeTest
                 countgood ++;
 
             }
+            //jesli wylosowano 1 i iloc dzlych probowek jest mniejsza od maksymalnego rozmiaru tablicy
             if(value == 1  && countbad < bad.length)
             {
                 tTube1 [counter]= bad[countbad];
@@ -232,7 +234,7 @@ public class TubeTest
      }
 
      /**
-     *  metoda przypisująca indeks w zależności od położenia probówki
+     *  metoda przypisująca indeks w zależności od miejsca narysowania probówki
      * @param x
      * @param y
      * @return index

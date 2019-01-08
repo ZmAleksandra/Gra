@@ -1,3 +1,4 @@
+package com.zmijewska.game;
  import javax.swing.*;
  import java.awt.*;
  import java.io.File;
@@ -6,32 +7,28 @@
  import javax.sound.sampled.Clip;
 
  /**
-  * Klasa - kontener parametrów
-  * Parametrami są pliki graficzne i zapisu stanu gry, aktualny czas, czas startu,
-  * pausa itp. w klasi tej odbywa się także zarządzanie plikami dźwiękowymi
+  * Klasa - kontener parametrow
+  * Parametrami sa pliki graficzne i zapisu stanu gry, aktualny czas, czas startu,
+  * pausa itp. W klasi tej odbywa sie takze zarzadzanie plikami dzwiekowymi
   * @author Aleksandra Żmijewska
   */
  public class Parameters {
      public static long T_break;
      public static long T_pause;
      public static long elapsedTime;
-     /** dopuszczalny czas gry*/
-     public static long GAME_TIME=Long.MAX_VALUE;
      /**początek czasu*/
-     /**liczba poziomów*/
      public static long startTime = System.currentTimeMillis();
-     /** Zmienna pomocnicza określająca czas ukończenia aktualnego poziomu */
-     public static double levelTime;
+     /**liczba poziomow*/
      public final static long n_levels=5;
      /**aktualny poziom gry*/
      public static int MoveMODE=1;
-     /**obraz tła*/
+     /**obraz tla*/
      public static Image bgImage;
      /**bohater gry w pozycji pierwszej*/
      public static Image chemist1;
      /**bohater gry w pozycji drugiej*/
      public static Image chemist2;
-     /**tytuł kategorii poziomu*/
+     /**tytul kategorii poziomu*/
      public static Image title1;
      public static Image title2;
      public static Image title3;
@@ -41,7 +38,7 @@
      public static Image menuImage;
      /**obraz pomocy*/
      public static Image help;
-     /**obraz zakmnięcia pomocy*/
+     /**obraz zakmniecia pomocy*/
      public static Image closehelp;
      /**obraz końca gry*/
      public static Image theEnd;
@@ -53,9 +50,9 @@
      public static Image level;
      /**obraz czasu*/
      public static Image time;
-     /**obraz punktów*/
+     /**obraz punktow*/
      public static Image points;
-     /**tablica obrazków probówek*/
+     /**tablica obrazków probowek*/
      public static Image[] testTubes;
      /**przerwa w grze*/
      public static boolean pause=false;
@@ -65,8 +62,8 @@
      public static boolean end=false;
 
      /**
-      * Funkcja odtwarzania dźwięku z pliku
-      * @param f - obiekt klasy File reprezentujący ścieżkę do pliku MP3
+      * Funkcja odtwarzania dzwieku z pliku
+      * @param f - obiekt klasy File reprezentujący scieżke do pliku MP3
       */
      public static synchronized void playSound(final File f) {
          new Thread(new Runnable() {
@@ -84,7 +81,7 @@
      }
 
      /**
-      * Metoda ładowania początkowych zasobów gry
+      * Metoda ladowania początkowych zasobow gry
       */
      public static void loadInitialImages() {
          bgImage = loadImage("images/background.png");
@@ -140,7 +137,7 @@
 
      }
      /**
-      * Metoda pobierania obiektu klasy Image na podstawie ścieżki
+      * Metoda pobierania obiektu klasy Image na podstawie sciezki
       * dostepu podanej jako String
       */
      public static Image loadImage(String fileName) {

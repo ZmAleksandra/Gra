@@ -1,3 +1,4 @@
+package com.zmijewska.game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Timer;
@@ -5,7 +6,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 /**
- * zarządzanie akcją kliknięcia klawiatury
+ * Zarzadzanie akcja klikniecia strzalek na klawiaturze, przemieszczanie ludzika
  * @author Aleksandra Żmijewska
  */
   public class Chemist {
@@ -15,7 +16,7 @@ import javax.swing.JFrame;
     private Timer  zegar;
 
     /**
-     *  zmiana położenia bohatera w zależnosci od wciśniętego klawisza
+     *  zmiana polozenia bohatera w zaleznosci od wcisnietego klawisza
      */
   class Run extends TimerTask{
       public void run()
@@ -46,15 +47,15 @@ import javax.swing.JFrame;
 
       klawisze  = new boolean[4];
       position    = new int[2];
-      //początkowe położenie bohatera gry
+      //początkowe połozenie bohatera gry
       position[0] = 190;
       position[1] = 200;
 
           zegar = new Timer();
-          //określenie okresu przeuswania się bohatera gry po naciśnięciu strzałki na klawiaturze
+          //okreslenie okresu przeuswania sie bohatera gry po nacisnieciu strzalki na klawiaturze
           zegar.scheduleAtFixedRate(new Run(),1,8);
           jFrame.addKeyListener(new KeyListener(){
-          //postępowanie gdy wciśnięta strzałka
+          //postępowanie gdy wcisnięeta strzalka
           public void keyPressed(KeyEvent e){
              switch(e.getKeyCode()){
               case KeyEvent.VK_UP:
@@ -67,7 +68,7 @@ import javax.swing.JFrame;
                   klawisze[3] = true; break;
             }
           }
-         //postępowanie gdy puszczona strzałka
+         //postępowanie gdy puszczona strzalka
           public void keyReleased(KeyEvent e){
           switch(e.getKeyCode()){
           case KeyEvent.VK_UP:

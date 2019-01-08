@@ -1,4 +1,6 @@
- import javax.swing.*;
+package com.zmijewska.game;
+
+import javax.swing.*;
  import java.awt.*;
  import java.awt.event.MouseAdapter;
  import java.awt.event.MouseEvent;
@@ -6,16 +8,13 @@
  import java.text.DecimalFormat;
  import java.util.concurrent.TimeUnit;
  /**
-  * Główna obszar graficzny gry, wyświetlanie obrazów, zarządzanie akcją klikania myszki
-  * Klasa dziedzicząca po klasie JPanel
+  * Glowny obszar graficzny gry, wyswietlanie obrazow, zarzadzanie akcja klikania myszki.
+  * Klasa dziedziczaca po klasie JPanel
   * @author Aleksandra Żmijewska
   */
  public class gPanel extends JPanel {
 
-     /**
-      *    zmienna odpowiedzialna za kliknięcie pomocy
-      */
-
+     /** kliknięcie pomocy*/
      public boolean help;
      /**czy kliknięto probówkę*/
      public boolean [] clicked;
@@ -32,24 +31,25 @@
 
  /**
   * Konstruktor klasy pola graficznego gry.
-  * Ustawienia początkowe oraz ładowanie zasobów
-  * Ponadto dodanie obsługi zdarzeń w polu graficznym gry
+  * Ustawienia poczatkowe oraz ladowanie zasobow
+  * Ponadto dodanie obslugi zdarzen w polu graficznym gry
+  * @param jFrame
   */
-     public gPanel(int width, int height, JFrame jFrame) {
+     public gPanel(JFrame jFrame) {
          move = new Chemist(jFrame);
          gStatus = new GameStatus();
          tubes = new TubeTest();
          gStatus.reset();
          tubes.level(gStatus.level);
-         //czcionka wyświetlania zmieniającego się stanu gry
+         //czcionka wyswietlania zmieniajacego sie stanu gry
          menuFont = new Font("Dialog", Font.ITALIC , 28);
-         //czcionka zakończenia gry
+         //czcionka zakonczenia gry
          alertFont = new Font("Dialog", Font.BOLD, 52);
          help=false;
          clicked=new boolean[8];
 
          restartGame();
-         /* Dodaj obsługę zdarzeń - wciśnięcie przycisku myszki*/
+         /* Dodaj obsługe zdarzen - wcisniecie przycisku myszki*/
          addMouseListener(new MouseAdapter()
          {
 
@@ -84,24 +84,24 @@
                  //wybranie help
                  if (me.getX() > (1130)&& me.getX() < (1250) && me.getY() > 80  && me.getY() <115) {
 
-                     if(!help) {
+                     if(!help) {//jesli nie kliknieto przycisku POMOC
                          help = true;
                          Parameters.pause = true;
                          repaint();
                      }
-                     else {
+                     else {//jesli kliknieto przycisk POMOC
                          help = false;
                          Parameters.pause = false;
                      }
                  }
-                    //wybranie probowki
+                    //wybranie probowki prawidlowej lub zlej
                     if (me.getX() > 30 && me.getX() < 180 && me.getY() > 420 && me.getY() < 595 && !clicked[tubes.getindex(me.getX(),me.getY())]&& move.position[0] <195)
                     {
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
                         Parameters.playSound(new File("sounds/click1.wav"));
-                        if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
+                        if(tubes.answers[tubes.getindex(me.getX(),me.getY())])//jeśli kliknięto właściwą probówke to dodaj punkty
                             gStatus.points++;
-                        else
+                        else//jeśli kliknieto zlą to odejmij punkty
                             gStatus.points--;
                     }
 
@@ -109,8 +109,8 @@
          });
      }
      /**
-      * Nadpisz metodę odpowiedzialną za odrysowanie panelu - własne wypełnienie
-      * pola graficznego gry, zgodnie z wybraną treścią.
+      * Nadpisz metode odpowiedzialna za odrysowanie panelu - wlasne wypelnienie
+      * pola graficznego gry, zgodnie z wybrana trescia.
       *
       * @param gs
       */
@@ -121,6 +121,7 @@
 
          g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
          g.drawImage(Parameters.bgImage, 0, 0, null);
+         //zmienne okreslajace przesunięcie miejsca wyswietlenia kolejnej porbowki wzgledem poprzedniej
          int dx=40;
          int dy=90;
          int d=20;
@@ -136,20 +137,21 @@
              }
          }
 
-         //przenoszenie probowek
+         //przenoszenie probowek- rysowanie probówek póki są one wybierane
          for(int a=0;a<8; a++)
          {
              if (move.position[0] < 195 && clicked[a]) {
                  g.drawImage(tubes.tTube[a], 163, 330, null);
              }
          }
+         //przenoszenie probowek do wiadra
         for(int a=0;a<8; a++)
         {
             if (move.position[0] >195 && move.position[0] < 960 && clicked[a]) {
                 g.drawImage(tubes.tTube[a], move.position[0] + 80, move.position[1] + 150, null);
             }
         }
-        //umieszczenie probowek w wiadrze
+        //umieszczenie probowek w wiadrze jedna obok drugiej
         if(move.position[0]>960 )
         {
             int x=1080;
@@ -172,27 +174,28 @@
          //rysowanie tytulu grupy zwiazkow
          g.drawImage(tubes.title,1100,440,null);
 
-        //opis postepowania w grze
+        //wsświetlanie opisu postepowania w grze
         if(help)
         {
-            g.setColor(new Color(161, 148, 111));
-            g.fillRect(300, 180, 880, 230);
-            g.setColor(Color.black);
-            g.setFont(menuFont);
-            g.drawString("Klikając myszką wybierz probówki, które Twoim ", 330, 230);
-            g.drawString("zdaniem pasują do kategorii podanej na zbiorniku na mecie.",330, 260);
-            g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawidłowych probówek, ", 330, 290);
-            g.drawString("dostarcz je na metę poruszając się strzałkami na klawiaturze.", 330, 320);
-            g.drawString("Poziom 1 i 2: są 4 prawidłowe probówki, poziom 3 i 4: są ", 330, 350);
-            g.drawString("3 prawidłowe probówki, poziom 5: są dwie prawidłowe probówki.", 330, 380);
+             g.setColor(new Color(161, 148, 111));
+             g.fillRect(300, 180, 880, 230);
+             g.setColor(Color.black);
+             g.setFont(menuFont);
+             g.drawString("Klikając myszką wybierz probówki, które Twoim ", 330, 230);
+             g.drawString("zdaniem pasują do kategorii podanej na zbiorniku na mecie.",330, 260);
+             g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawidłowych probówek, ", 330, 290);
+             g.drawString("dostarcz je na metę poruszając się strzałkami na klawiaturze.", 330, 320);
+             g.drawString("Poziom 1 i 2: są 4 prawidłowe probówki, poziom 3 i 4: są ", 330, 350);
+             g.drawString("3 prawidłowe probówki, poziom 5: są dwie prawidłowe probówki.", 330, 380);
         }
 
 
-         g.setColor(Color.black);
-         g.setFont(menuFont);
-         DecimalFormat df = new DecimalFormat("#.##");
+             g.setColor(Color.black);
+             g.setFont(menuFont);
+             DecimalFormat df = new DecimalFormat("#.##");
+
             //jesli wybrano MENU
-         if (Parameters.pause && !help) {
+        if (Parameters.pause && !help) {
              //rysuj MENU
              g.drawImage(Parameters.play,1130,10,null);
              g.drawImage(Parameters.theEnd,1036,70,null);
@@ -221,15 +224,14 @@
 
          }
          //jesli nie wybrano menu
-         else {
+        else {
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
              g.drawImage(Parameters.time ,665,630,null);
              g.drawString(""+ df.format((Parameters.elapsedTime)/1000.0)+"s", 755, 660);
              g.drawImage(Parameters.points,440,625,null);
 
-
-        //czy ukończono poziom
+             //czy ukonczono poziom
              if (move.position[0]>980) {
                  if (!Parameters.levelPause) {
                      Parameters.levelPause = true;
@@ -240,40 +242,39 @@
                      }
 
                  }
-                     //kolejny level
+                 //kolejny level
                  if (Parameters.levelPause) {
-                     if (Parameters.MoveMODE < Parameters.n_levels) {
-                         Parameters.MoveMODE++;
-                         gStatus.time += Parameters.elapsedTime;
-                         Parameters.levelPause = false;
-                         Parameters.bgImage = Parameters.loadImage("images/background.png");
-                         gStatus.nextLevel();
-                         restartGame();
-
-                     } else
-                     {
-                         //jesli nie ma juz wiecej poziomow to koniec gry
-                         gStatus.time += Parameters.elapsedTime;
-                         Parameters.end = true;
-                         Parameters.pause = true;
-
+                    if (Parameters.MoveMODE < Parameters.n_levels) {
+                     Parameters.MoveMODE++;
+                     gStatus.time += Parameters.elapsedTime;
+                     Parameters.levelPause = false;
+                     Parameters.bgImage = Parameters.loadImage("images/background.png");
+                     gStatus.nextLevel();
+                     restartGame();
                      }
-                         repaint();
-                     }
+                    else
+                    {
+                    //jesli nie ma juz wiecej poziomow to koniec gry
+                     gStatus.time += Parameters.elapsedTime;
+                     Parameters.end = true;
+                     Parameters.pause = true;
+                    }
+                repaint();
+                }
 
              }
              if (move.position[0]>960)
                  g.drawString("" + gStatus.points, 560, 660);
                  g.drawImage(Parameters.menuImage,1130,10,null);
-            //jesli nie wybrano POMOC
-            if(!help)
+             //jesli nie wybrano POMOC
+             if(!help)
                 g.drawImage(Parameters.help,1130,70,null);
-            //jesli wybrano POMOC
-            else
+             //jesli wybrano POMOC
+             else
                 g.drawImage(Parameters.closehelp,1130,70,null);
 
-          }
-         }
+             }
+     }
      /**
       * Restart gry - ustawienia parametrów oraz obiektów pierwszego planu
       */
