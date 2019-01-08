@@ -139,13 +139,13 @@
          //przenoszenie probowek
          for(int a=0;a<8; a++)
          {
-             if (move.position[0] < 192 && clicked[a]) {
-                 g.drawImage(tubes.tTube[a], 163, 350, null);
+             if (move.position[0] < 195 && clicked[a]) {
+                 g.drawImage(tubes.tTube[a], 163, 330, null);
              }
          }
         for(int a=0;a<8; a++)
         {
-            if (move.position[0] >192 && move.position[0] < 960 && clicked[a]) {
+            if (move.position[0] >195 && move.position[0] < 960 && clicked[a]) {
                 g.drawImage(tubes.tTube[a], move.position[0] + 80, move.position[1] + 150, null);
             }
         }
@@ -183,8 +183,8 @@
             g.drawString("zdaniem pasują do kategorii podanej na zbiorniku na mecie.",330, 260);
             g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawdziwych probówek, ", 330, 290);
             g.drawString("dostarcz je na metę poruszając się strzałkami na klawiaturze.", 330, 320);
-            g.drawString("Poziom 1 i 2: max 4 probówki, poziom 3 i 4: max 3 probówki,", 330, 350);
-            g.drawString("poziom 5: dwie probówki.", 330, 380);
+            g.drawString("Poziom 1 i 2: są 4 prawidłowe probówki, poziom 3 i 4: są ", 330, 350);
+            g.drawString("3 prawidłowe probówki, poziom 5: są dwie prawidłowe probówki.", 330, 380);
         }
 
 
@@ -207,16 +207,16 @@
             //jesli zakonczono gre
              if (Parameters.end) {
                  g.setColor(new Color(32, 75, 172));
-                 g.fillRect(300, 180, 620, 280);
+                 g.fillRect(300, 180, 640, 280);
                  g.setColor(Color.white);
                  g.setFont(alertFont);
                  g.drawString("KONIEC GRY! ", 390, 270);
-                 g.drawString("Łączny czas gry:" + df.format((Parameters.elapsedTime)/1000.0) + "s", 330, 340);
+                 g.drawString("Łączny czas gry:" + df.format((gStatus.time)/1000.0) + "s", 330, 340);
                  g.drawString("Punkty razem:" + df.format(gStatus.points), 330, 410);
                  g.drawImage(Parameters.time ,665,630,null);
                  g.setColor(Color.black);
                  g.setFont(menuFont);
-                 g.drawString(""+ df.format((Parameters.elapsedTime)/1000.0)+"s", 755, 660);
+                 g.drawString(""+ df.format((gStatus.time)/1000.0)+"s", 755, 660);
              }
 
          }
@@ -244,6 +244,7 @@
                  if (Parameters.levelPause) {
                      if (Parameters.MoveMODE < Parameters.n_levels) {
                          Parameters.MoveMODE++;
+                         gStatus.time += Parameters.elapsedTime;
                          Parameters.levelPause = false;
                          Parameters.bgImage = Parameters.loadImage("images/background.png");
                          gStatus.nextLevel();
@@ -252,6 +253,7 @@
                      } else
                      {
                          //jesli nie ma juz wiecej poziomow to koniec gry
+                         gStatus.time += Parameters.elapsedTime;
                          Parameters.end = true;
                          Parameters.pause = true;
 
