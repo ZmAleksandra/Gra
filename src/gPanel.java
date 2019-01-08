@@ -5,22 +5,36 @@
  import java.io.File;
  import java.text.DecimalFormat;
  import java.util.concurrent.TimeUnit;
+ /**
+  * Główna obszar graficzny gry, wyświetlanie obrazów, zarządzanie akcją klikania myszki
+  * Klasa dziedzicząca po klasie JPanel
+  * @author Aleksandra Żmijewska
+  */
  public class gPanel extends JPanel {
 
+     /**
+      *    zmienna odpowiedzialna za kliknięcie pomocy
+      */
 
-     //zmienna odpowiedzialna za kliknięcie pomocy
      public boolean help;
-     //czy kliknięto probówkę
+     /**czy kliknięto probówkę*/
      public boolean [] clicked;
-     //obiekt klasy GameStatus
+     /**obiekt klasy GameStatus*/
      public GameStatus gStatus;
+     /** Czcionki stosowane w pasku Menu*/
      public Font menuFont;
+     /** Czcionki stosowane jako alert w polu gry*/
      public Font alertFont;
-     //obiekt klasy Chemist
+     /** obiekt klasy Chemist*/
      public Chemist move;
-     //obiekt klasy TubeTest
+     /** obiekt klasy TubeTest*/
      public TubeTest tubes;
 
+ /**
+  * Konstruktor klasy pola graficznego gry.
+  * Ustawienia początkowe oraz ładowanie zasobów
+  * Ponadto dodanie obsługi zdarzeń w polu graficznym gry
+  */
      public gPanel(int width, int height, JFrame jFrame) {
          move = new Chemist(jFrame);
          gStatus = new GameStatus();
@@ -33,9 +47,10 @@
          alertFont = new Font("Dialog", Font.BOLD, 52);
          help=false;
          clicked=new boolean[8];
-         restartGame();
 
-         addMouseListener(new MouseAdapter()//wciśnięcie myszki
+         restartGame();
+         /* Dodaj obsługę zdarzeń - wciśnięcie przycisku myszki*/
+         addMouseListener(new MouseAdapter()
          {
 
              @Override
@@ -44,6 +59,7 @@
                  //wybranie MENU
                  if (me.getX() > (1130)&& me.getX() < (1250) && me.getY() > 10  && me.getY() <80) {
                      Parameters.pause = !Parameters.pause;
+                     repaint();
                      return;
                  }
 
@@ -56,14 +72,13 @@
                  }
                  //wybranie nowa gra
                  if (me.getX() > 1053 && me.getX() < 1253 && me.getY() > 115 && me.getY() <250 && Parameters.pause) {
-                         Parameters.MoveMODE = 1;
-                         Parameters.end = false;
-                         gStatus.reset();
-                         Parameters.levelPause = false;
-                         Parameters.bgImage = Parameters.loadImage("images/background.png");
-                         restartGame();
-                         repaint();
-
+                     Parameters.MoveMODE = 1;
+                     Parameters.end = false;
+                     gStatus.reset();
+                     Parameters.levelPause = false;
+                     Parameters.bgImage = Parameters.loadImage("images/background.png");
+                     restartGame();
+                     repaint();
                  }
 
                  //wybranie help
@@ -72,6 +87,7 @@
                      if(!help) {
                          help = true;
                          Parameters.pause = true;
+                         repaint();
                      }
                      else {
                          help = false;
@@ -84,7 +100,7 @@
                         clicked[tubes.getindex(me.getX(),me.getY())]=true;
                         Parameters.playSound(new File("sounds/click1.wav"));
                         if(tubes.answers[tubes.getindex(me.getX(),me.getY())])
-                        gStatus.points++;
+                            gStatus.points++;
                         else
                             gStatus.points--;
                     }
@@ -92,9 +108,14 @@
              }//koniec mouseClicked()
          });
      }
-
+     /**
+      * Nadpisz metodę odpowiedzialną za odrysowanie panelu - własne wypełnienie
+      * pola graficznego gry, zgodnie z wybraną treścią.
+      *
+      * @param gs
+      */
      @Override
-     protected void paintComponent(Graphics gs) {//rysowanie
+     protected void paintComponent(Graphics gs) {
 
          Graphics2D g = (Graphics2D) gs;
 
@@ -116,7 +137,6 @@
          }
 
          //przenoszenie probowek
-
          for(int a=0;a<8; a++)
          {
              if (move.position[0] < 192 && clicked[a]) {
@@ -181,7 +201,7 @@
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
              g.drawImage(Parameters.time ,665,630,null);
-             g.drawString(""+ df.format((System.currentTimeMillis()-Parameters.startTime)/1000.0)+"s", 755, 660);
+             g.drawString(""+ df.format((Parameters.elapsedTime)/1000.0)+"s", 755, 660);
              g.drawImage(Parameters.points,440,625,null);
              g.drawString("" + gStatus.points, 560, 660);
             //jesli zakonczono gre
@@ -191,12 +211,12 @@
                  g.setColor(Color.white);
                  g.setFont(alertFont);
                  g.drawString("KONIEC GRY! ", 390, 270);
-                 g.drawString("Łączny czas gry:" + df.format(gStatus.time) + "s", 330, 340);
+                 g.drawString("Łączny czas gry:" + df.format((Parameters.elapsedTime)/1000.0) + "s", 330, 340);
                  g.drawString("Punkty razem:" + df.format(gStatus.points), 330, 410);
                  g.drawImage(Parameters.time ,665,630,null);
                  g.setColor(Color.black);
                  g.setFont(menuFont);
-                 g.drawString(""+ df.format(gStatus.time)+"s", 755, 660);
+                 g.drawString(""+ df.format((Parameters.elapsedTime)/1000.0)+"s", 755, 660);
              }
 
          }
@@ -205,15 +225,13 @@
              g.drawImage(Parameters.level,300,10,null);
              g.drawString("" + gStatus.level, 420, 44);
              g.drawImage(Parameters.time ,665,630,null);
-             g.drawString(""+ df.format((System.currentTimeMillis()-Parameters.startTime)/1000.0)+"s", 755, 660);
+             g.drawString(""+ df.format((Parameters.elapsedTime)/1000.0)+"s", 755, 660);
              g.drawImage(Parameters.points,440,625,null);
 
 
         //czy ukończono poziom
              if (move.position[0]>980) {
                  if (!Parameters.levelPause) {
-                     long stopTime = System.currentTimeMillis();
-                     Parameters.levelTime = (stopTime - Parameters.startTime) / 1000.0;
                      Parameters.levelPause = true;
                      try {
                          TimeUnit.SECONDS.sleep(1);
@@ -226,7 +244,6 @@
                  if (Parameters.levelPause) {
                      if (Parameters.MoveMODE < Parameters.n_levels) {
                          Parameters.MoveMODE++;
-                         gStatus.time += Parameters.levelTime;
                          Parameters.levelPause = false;
                          Parameters.bgImage = Parameters.loadImage("images/background.png");
                          gStatus.nextLevel();
@@ -234,9 +251,8 @@
 
                      } else
                      {
-                             //jesli nie ma juz wiecej poziomow to koniec gry
+                         //jesli nie ma juz wiecej poziomow to koniec gry
                          Parameters.end = true;
-                         gStatus.time += Parameters.levelTime;
                          Parameters.pause = true;
 
                      }
@@ -246,10 +262,7 @@
              }
              if (move.position[0]>960)
                  g.drawString("" + gStatus.points, 560, 660);
-
-
-
-                g.drawImage(Parameters.menuImage,1130,10,null);
+                 g.drawImage(Parameters.menuImage,1130,10,null);
             //jesli nie wybrano POMOC
             if(!help)
                 g.drawImage(Parameters.help,1130,70,null);
@@ -259,11 +272,14 @@
 
           }
          }
-
+     /**
+      * Restart gry - ustawienia parametrów oraz obiektów pierwszego planu
+      */
      private void restartGame()
      {
-
          Parameters.startTime = System.currentTimeMillis();
+         Parameters.elapsedTime=0;
+         Parameters.T_break=0;
          Parameters.pause = false;
          tubes.level(gStatus.level);
          move.position[0] = 190;
@@ -272,3 +288,4 @@
              clicked[i]=false;
      }
  }
+

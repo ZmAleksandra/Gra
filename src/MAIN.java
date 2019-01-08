@@ -1,8 +1,19 @@
 import java.awt.*;
 
+/**
+ * Prosta gra (bez optymalizacji) jako przykład aplikacji interaktywnej
+ * @author Aleksandra Żmijewska
+ */
 public class MAIN{
+
+    /**
+     * Metoda uruchamia grę. Najpierw pobierane są parametry ekranu
+     * i po ustaleniu rozmiaru gry (1280/720) obliczany jest punkt (x,y)
+     * górnego, lewego narożnika panelu gry tak, aby pole gry było wyśrodkowane
+     * na ekranie.
+     */
 public static void main(String[] args) {
-    //ustaw szerokośc i wyokośc ekranu
+    //ustaw szerokośc i wysokośc ekranu
          int gameWidth=1280;
          int gameHeight=720;
     //pobieranie rozmiaru ekranu

@@ -1,30 +1,40 @@
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Losowanie probówek, zarządzanie ich losowym wyświetlaniem
+ * @author Aleksandra Żmijewska
+ */
 public class TubeTest
 {
     public Image [] tTube;
     public Image title;
     public boolean [] answers;
 
-    public TubeTest()//konstruktor klasy
+    /**
+     * konstruktor klasy, definicja zmiennych
+     */
+    public TubeTest()
     {
         tTube= new Image [8];
         answers = new boolean[8];
     }
 
-    // metoda odpowiedzialna za losowanie właściwych probówek w zależnosci od poziomu gry
- public void level (int nLevel)
- {
-// tworzenie tablicy typu int
- int numbers [] = new int [31];
- for(int i=0; i<31;i++)
-  numbers[i]=i;
+    /**
+     * losowanie właściwych probówek w zależnosci od poziomu gry
+     * @param nLevel
+     */
+    public void level (int nLevel)
+    {
+    // tworzenie tablicy typu int
+    int numbers [] = new int [31];
+    for(int i=0; i<31;i++)
+    numbers[i]=i;
 
      Random r = new Random();
      Image []good = null;
      Image []bad = null ;
-//w zależności od poziomu losuj właściwe probówki
+    //w zależności od poziomu losuj właściwe probówki
          if(nLevel==1)
          {
              int i = 0;
@@ -181,43 +191,53 @@ public class TubeTest
              title = Parameters.title5;
          }
          this.hash (good,bad);
- }
+     }
 
-//metoda losująca położenie probówek we wiadrze na starcie
- public  void hash(Image[] good,Image[] bad)
- {
+    /**
+     * losowanie położenia probówek we wiadrze na starcie
+     * @param bad
+     * @param good
+     */
+     public  void hash(Image[] good,Image[] bad)
+     {
      Image [] tTube1 = new Image[8];
      Random r = new Random();
-    int counter = 0;
-    int countgood=0;
-    int countbad=0;
+     int counter = 0;
+     int countgood=0;
+     int countbad=0;
 
-while ( counter<8)
-{
- int value = r.nextInt(2);//losowanie wartości 0 lub 1
-//jesli wylosowano 0 i ilośc dobrych probówek jest mniejsza od maksymalnego rozmiaru tablicy
- if(value == 0  && countgood < good.length)
- {
-     tTube1 [counter]= good[countgood];
-     answers[counter]=true;
-     counter ++;
-     countgood ++;
+        while ( counter<8)
+        {
+        int value = r.nextInt(2);//losowanie wartości 0 lub 1
+        //jesli wylosowano 0 i ilośc dobrych probówek jest mniejsza od maksymalnego rozmiaru tablicy
+            if(value == 0  && countgood < good.length)
+            {
+                 tTube1 [counter]= good[countgood];
+                answers[counter]=true;
+                counter ++;
+                countgood ++;
 
- }
- if(value == 1  && countbad < bad.length)
- {
-     tTube1 [counter]= bad[countbad];
-     answers[counter]=false;
-     counter ++;
-     countbad ++;
- }
+            }
+            if(value == 1  && countbad < bad.length)
+            {
+                tTube1 [counter]= bad[countbad];
+                answers[counter]=false;
+                counter ++;
+                countbad ++;
+            }
 
-    }
+        }
 
-    tTube=tTube1;
-    }
-    // metoda przypisująca indeks w zależności od położenia probówki
-public  int getindex(int x, int y)
+            tTube=tTube1;
+     }
+
+     /**
+     *  metoda przypisująca indeks w zależności od położenia probówki
+     * @param x
+     * @param y
+     * @return index
+     */
+     public  int getindex(int x, int y)
     {
      int index=0;
     if(y>508)
@@ -240,7 +260,7 @@ public  int getindex(int x, int y)
 
         }
 
-return index;
+        return index;
     }
 
     }

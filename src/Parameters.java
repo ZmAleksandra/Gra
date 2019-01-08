@@ -5,57 +5,69 @@
  import javax.sound.sampled.AudioSystem;
  import javax.sound.sampled.Clip;
 
-
+ /**
+  * Klasa - kontener parametrów
+  * Parametrami są pliki graficzne i zapisu stanu gry, aktualny czas, czas startu,
+  * pausa itp. w klasi tej odbywa się także zarządzanie plikami dźwiękowymi
+  * @author Aleksandra Żmijewska
+  */
  public class Parameters {
-    //dopuszczalny czas gry
+     public static long T_break;
+     public static long T_pause;
+     public static long elapsedTime;
+     /** dopuszczalny czas gry*/
      public static long GAME_TIME=Long.MAX_VALUE;
-     //liczba poziomó
-     public final static long n_levels=5;
-    // początek czasu
-     public static long startTime;
-     //czas poziomu
+     /**początek czasu*/
+     /**liczba poziomów*/
+     public static long startTime = System.currentTimeMillis();
+     /** Zmienna pomocnicza określająca czas ukończenia aktualnego poziomu */
      public static double levelTime;
-     //aktualny poziom gry
+     public final static long n_levels=5;
+     /**aktualny poziom gry*/
      public static int MoveMODE=1;
-     //obraz tła
+     /**obraz tła*/
      public static Image bgImage;
-     //bohater gry
+     /**bohater gry w pozycji pierwszej*/
      public static Image chemist1;
+     /**bohater gry w pozycji drugiej*/
      public static Image chemist2;
-     //tytuł kategorii poziomu
+     /**tytuł kategorii poziomu*/
      public static Image title1;
      public static Image title2;
      public static Image title3;
      public static Image title4;
      public static Image title5;
-     //obraz menu
+     /**obraz menu*/
      public static Image menuImage;
-     //obraz pomocy
+     /**obraz pomocy*/
      public static Image help;
-     //obraz zakmnięcia pomocy
+     /**obraz zakmnięcia pomocy*/
      public static Image closehelp;
-     //obraz końca gry
+     /**obraz końca gry*/
      public static Image theEnd;
-     //obraz nowej gry
+     /**obraz nowej gry*/
      public static Image newGame;
-     //obraz powrotu do gry
+     /**obraz powrotu do gry*/
      public static Image play;
-     //obraz poziomu
+     /**obraz poziomu*/
      public static Image level;
-     //obraz czasu
+     /**obraz czasu*/
      public static Image time;
-     //obraz punktów
+     /**obraz punktów*/
      public static Image points;
-     //tablica obrazków probówek
+     /**tablica obrazków probówek*/
      public static Image[] testTubes;
-     //przerwa w grze
+     /**przerwa w grze*/
      public static boolean pause=false;
-     //czy wybrani menu
+     /**czy wybrano menu*/
      public static boolean levelPause=false;
-     //koniec gry
+     /**koniec gry*/
      public static boolean end=false;
 
-    //Funkcja odtwarzania dźwięku z pliku,  f - obiekt klasy File reprezentujący ścieżkę do pliku MP3
+     /**
+      * Funkcja odtwarzania dźwięku z pliku
+      * @param f - obiekt klasy File reprezentujący ścieżkę do pliku MP3
+      */
      public static synchronized void playSound(final File f) {
          new Thread(new Runnable() {//współbieżnie wykonywany wątek, baloniki lataja i jest odtwarzany dźwięk
              public void run() {
@@ -71,7 +83,9 @@
          }).start();
      }
 
-//ładowanie początkowych zasobów gry
+     /**
+      * Metoda ładowania początkowych zasobów gry
+      */
      public static void loadInitialImages() {
          bgImage = loadImage("images/background.png");
          chemist1= loadImage("images/ludek1.png");
@@ -125,7 +139,10 @@
          testTubes[30]=loadImage("images/p28.png");
 
      }
-     //Metoda pobierania obiektu klasy Image na podstawie ścieżki dostepu podanej jako String
+     /**
+      * Metoda pobierania obiektu klasy Image na podstawie ścieżki
+      * dostepu podanej jako String
+      */
      public static Image loadImage(String fileName) {
          return new ImageIcon(fileName).getImage();
      }
