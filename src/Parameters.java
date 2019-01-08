@@ -69,7 +69,7 @@
       * @param f - obiekt klasy File reprezentujący ścieżkę do pliku MP3
       */
      public static synchronized void playSound(final File f) {
-         new Thread(new Runnable() {//współbieżnie wykonywany wątek, baloniki lataja i jest odtwarzany dźwięk
+         new Thread(new Runnable() {
              public void run() {
                  try {
                      Clip clip = AudioSystem.getClip();
