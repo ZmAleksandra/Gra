@@ -181,7 +181,7 @@
             g.setFont(menuFont);
             g.drawString("Klikając myszką wybierz probówki, które Twoim ", 330, 230);
             g.drawString("zdaniem pasują do kategorii podanej na zbiorniku na mecie.",330, 260);
-            g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawdziwych probówek, ", 330, 290);
+            g.drawString("Po wybraniu wszystkich, Twoim zdaniem prawidłowych probówek, ", 330, 290);
             g.drawString("dostarcz je na metę poruszając się strzałkami na klawiaturze.", 330, 320);
             g.drawString("Poziom 1 i 2: są 4 prawidłowe probówki, poziom 3 i 4: są ", 330, 350);
             g.drawString("3 prawidłowe probówki, poziom 5: są dwie prawidłowe probówki.", 330, 380);
@@ -211,7 +211,7 @@
                  g.setColor(Color.white);
                  g.setFont(alertFont);
                  g.drawString("KONIEC GRY! ", 390, 270);
-                 g.drawString("Łączny czas gry:" + df.format((gStatus.time)/1000.0) + "s", 330, 340);
+                 g.drawString("Laczny czas gry:" + df.format((gStatus.time)/1000.0) + "s", 330, 340);
                  g.drawString("Punkty razem:" + df.format(gStatus.points), 330, 410);
                  g.drawImage(Parameters.time ,665,630,null);
                  g.setColor(Color.black);
